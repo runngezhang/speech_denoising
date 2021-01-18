@@ -1,0 +1,69 @@
+{
+    "seed": 42,
+    "description": "null",
+    "root_dir": "./checkpoints/CNN_WITH_SKIP_CONNECTIONS",
+    "cudnn_deterministic": false,
+    "trainer": {
+        "module": "trainer.causal_trainer",
+        "main": "Trainer",
+        "epochs": 20,
+        "save_checkpoint_interval": 1,
+        "validation": {
+            "interval": 1,
+            "find_max": true,
+            "custom": {
+                "visualization_limit": 20,
+                "n_fft": 320,
+                "win_length": 320,
+                "hop_length": 160
+            }
+        }
+    },
+    "model": {
+        "module": "model.cnn_with_skip_connections",
+        "main": "CNN_WITH_SKIP_CONNECTIONS",
+        "args": {}
+    },
+    "loss_function": {
+        "module": "model.loss",
+        "main": "mse_loss_autoencoder",
+        "args": {}
+    },
+    "optimizer": {
+        "lr": 0.0006,
+        "beta1": 0.9,
+        "beta2": 0.999
+    },
+    "train_dataset": {
+        "module": "dataset.dataset_variable_length_input",
+        "main": "Dataset",
+        "args": {
+            "dataset_list": "./BRSpeech/test_autoencoder_sample.csv",
+            "limit": null,
+            "offset": 0,
+            "sr": 16000,
+            "n_fft": 320,
+            "hop_length": 160,
+            "train": true
+        }
+    },
+    "validation_dataset": {
+        "module": "dataset.dataset_variable_length_input",
+        "main": "Dataset",
+        "args": {
+            "dataset_list": "./BRSpeech/test_autoencoder_sample.csv",
+            "limit": null,
+            "offset": 0,
+            "sr": 16000,
+            "n_fft": 320,
+            "hop_length": 160,
+            "train": false
+        },
+    },
+    "train_dataloader": {
+        "batch_size": 16,
+        "num_workers": 40,
+        "shuffle": true,
+        "pin_memory": true
+    }
+}

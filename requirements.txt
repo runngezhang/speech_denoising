@@ -1,0 +1,9 @@
+torch==1.7.2
+pystoi==0.3.3
+scipy==1.5.4
+pesq==0.0.2
+json5==0.9.5
+librosa==0.8.0
+matplotlib==3.3.3
+tqdm==4.55.1
+tensorboard==2.4.0
